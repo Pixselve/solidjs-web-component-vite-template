@@ -41,10 +41,15 @@ jobs:
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
- 
+          
+          mv dist ../dist-tmp
           git checkout --orphan release
+          git rm -rf .
           git clean -fdx
           
-          git add dist/
+          mv ../dist-tmp dist
+          
+          git add .
           git commit -m "Release: Build $(date +'%Y-%m-%d %H:%M:%S')"
+          git remote set-url origin "https://${GH_PAT}@github.com/${GITHUB_REPOSITORY}.git"
           git push -f origin release

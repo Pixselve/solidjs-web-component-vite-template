@@ -10,6 +10,12 @@ export default defineConfig({
     preview: {},
     build: {
         target: 'esnext',
+        emptyOutDir: true,
+        rollupOptions: {
+            output: {
+                 entryFileNames: 'index.js',
+            }
+        }
 
     },
 });
